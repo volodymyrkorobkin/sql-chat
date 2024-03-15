@@ -9,7 +9,7 @@
 <html>
 <body>
 
-<aside class="chat-room-aside">
+<aside id="chat-room-aside">
 <div class="button-container">
 <button class="Chat-room-buttons">1</button>
 <button class="Chat-room-buttons">2</button>
@@ -20,11 +20,16 @@
 <button class="Chat-room-buttons">7</button>
 <button class="Chat-room-buttons">8</button>
 <button class="Chat-room-buttons">9</button>
+<button class="Chat-room-buttons">+</button>
 </div>
 </aside>
 <header class="header-Chat">
-<p>CHAT GROUP NAME RAAAH </p>
-<h1>5 :members<h1>
+<h1 class="text-Header">CHAT GROUP NAME RAAAH </h1>
+<div id="settings-Members">
+<h1 class="text-Header">5 :members<h1>
+<input type="checkbox" id="menu-toggle">
+<label for="menu-toggle" id="menu-icon">&#129416;</label>
+<div>
 </header>
 
 

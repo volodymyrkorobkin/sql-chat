@@ -76,11 +76,11 @@ main {
 }
 
 
+#chat-room-aside::-webkit-scrollbar {
+    display: none;
+}
 
-
-
-
-.chat-room-aside {
+#chat-room-aside {
     float: left;
     flex-wrap: wrap;
     align-content: flex-start;
@@ -93,9 +93,10 @@ main {
     height:100vh;
     z-index: 9998;
     background-color: #45a049;
-    width:150px;
+    width:92px;
     overflow-y: auto;
 }
+
 
 .Chat-room-buttons {
     border-radius: 50%;
@@ -105,24 +106,39 @@ main {
     padding: 20px;
     text-align: center;
     margin: 4px 2px;
-    cursor:pointer;
+    cursor: pointer;
     scroll-behavior: auto;
-    height: 120px;
-    width: 120px;
+    height: 60px;
+    width: 60px;
 }
 
 .header-Chat{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
     height:6vh;
     border-bottom-style:solid;
     border-color: black;
     background-color: red;
+    
 }
     
 .button-container{
     display:flex;
     flex-direction: column;
+    align-items: center;
 }
 
-.chat-room-aside::-webkit-scrollbar {
-    display: none;
+#settings-Members{
+display: flex;
+flex-direction: row;
+}
+
+#menu-toggle{
+    display:none;   
+}
+
+.text-Header{
+    margin-top: auto;
+    margin-bottom: auto;
 }
