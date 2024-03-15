@@ -3,7 +3,7 @@
 $servername = "localhost:3306";
 $databasename = "sqlChat";
 $username = "root";
-$password = "root"; 
+$password = ""; 
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$databasename", $username, $password);
