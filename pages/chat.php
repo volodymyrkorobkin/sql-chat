@@ -91,11 +91,11 @@ if (!isset($_GET["chatId"])) {
       </nav>
   </article>
 </section>
-
-
+<div id="text-area">
+</div>
 <section id="footer-Chat">
 <div id="type-balk">
-    <input type="text" class="input-field" placeholder="Start typing here...">
+    <input type="text" id="input-field" placeholder="Start typing here...">
 </div>
 </section>
 

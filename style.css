@@ -93,7 +93,7 @@ main {
     height:100vh;
     z-index: 9998;
     background-color: #290C37;
-    width:92px;
+    width:  81px;
     overflow-y: auto;
 }
 
@@ -131,9 +131,12 @@ main {
     align-items: center;
 }
 
+
+/*  shork menu */
+
 #settings-Members{
-display: flex;
-flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 #menu-toggle{
@@ -178,11 +181,37 @@ flex-direction: row;
 #navMain a:hover {
       color: var(--backgroundColour);
 }
+/* text area*/
+#text-area{
+    height:87vh;
+}
 
 
+/*  chat balk css*/
 
+#footer-Chat {
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
 
+#type-balk{
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
 
+#input-field {
+    width: 82vw;
+    border-radius: 15px;
+    height: 5vh;
+    align-items: center;
+    align-content: center;
+    text-decoration: white;
+    background-color: #290C37;
+    color: white;
+    font-size:20px;
+}
 
 
 /*     
