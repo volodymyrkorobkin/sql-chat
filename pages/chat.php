@@ -42,7 +42,9 @@ if (!isValidSession($_SESSION["id"])) {
     <button class="Chat-room-buttons">7</button>
     <button class="Chat-room-buttons">8</button>
     <button class="Chat-room-buttons">9</button>
-    <button class="Chat-room-buttons">+</button>
+
+
+    <button class="Chat-room-buttons" onclick="openNewChatOverlay()">+</button>
   </div>
 </aside>
 
