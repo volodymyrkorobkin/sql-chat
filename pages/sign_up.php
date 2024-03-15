@@ -3,6 +3,7 @@ $PATH = "../";
 include_once '../php/sql_connect.php';
 include_once '../php/sql_utils.php';
 include_once '../php/user.php';
+include_once '../php/session.php';
 
 
 
@@ -12,6 +13,15 @@ $head = [
         "signup.js"
     ]
 ];
+
+session_start();
+
+if (isset($_SESSION["id"])) {
+    if (isValidSession($_SESSION["id"])) {
+        header("Location: chat.php");
+        return;
+    }
+}
 
 // Sign up logic
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
