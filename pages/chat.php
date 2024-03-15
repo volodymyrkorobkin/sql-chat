@@ -1,5 +1,25 @@
-<!DOCTYPE html>
+<?php
+include_once '../php/session.php';
 
+// Session check
+session_start();
+if (!isset($_SESSION["id"])) {
+  header("Location: sign_in.php");
+  return;
+}
+if (!isValidSession($_SESSION["id"])) {
+  header("Location: sign_in.php");
+  return;
+}
+
+// Chatroom logic
+
+
+?>
+
+
+
+<!DOCTYPE html>
 <head>
   <meta charset="utf-8">
   <title>Chatroom</title>
@@ -8,6 +28,7 @@
   <link rel="stylesheet" href="../style.css">
 </head>
 <html>
+
 <body>
 
 <aside id="chat-room-aside">
@@ -49,24 +70,26 @@
 
 
 
-<section id="new-chat-overlay">
-  <section id="new-chat-overlay-content">
-    <h2>Create a new chat</h2>
-    <form action=""  method="post">
-      <input type="file" id="new-chat-img">
-      <label for="new-chat-name"></label>
-      <input type="text" id="new-chat-name" placeholder="Chat name">
+  <section id="new-chat-overlay">
+    <section id="new-chat-overlay-content">
+      <h2>Create a new chat</h2>
+      <form action="" method="get">
+        <input type="file" id="new-chat-img" name="new-chat-img" class="hiden">
+        <label for="new-chat-img" class="img">Upload an image</label>
+        <label for="new-chat-name"></label>
+        <input type="text" name="new-chat-name" id="new-chat-name" placeholder="Chat name" required>
 
-      <section>
-        <button type="button" id="cancel-create-chat">Cancel</button>
-        <button type="submit" id="create-chat">Create</button>
-      </section>
-    </form>
-  </section>
+        <section>
+          <button type="button" id="cancel-create-chat" onclick="closeNewChatOverlay()">Cancel</button>
+          <input type="submit" value="Create" name="submit">
+        </section>
+      </form>
+    </section>
 
 </section>
 
 
 
 </body>
+
 </html>

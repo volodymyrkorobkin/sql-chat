@@ -20,3 +20,12 @@ function isValidSession($sessionId) {
 
     return $result != false;
 }
+
+
+function getUserBySession($sessionId) {
+    $sql = "SELECT userId FROM sessions WHERE session = ?";
+    $params = [$sessionId];
+    $result = fetchSql($sql, $params);
+
+    return $result["userId"];
+}

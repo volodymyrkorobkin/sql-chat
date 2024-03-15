@@ -1,21 +1,7 @@
+function openNewChatOverlay() {
+    document.getElementById("new-chat-overlay").style.display = "flex";
+}
 
-
-
-
-
-
-
-window.addEventListener('beforeunload', function (e) {
-    e.preventDefault();
-    e.returnValue = '';
-});
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    setTimeout(function () {
-        document.querySelector('#new-chat-overlay').style.display = 'flex';
-    }, 2000);
-}); 
+function closeNewChatOverlay() {
+    document.getElementById("new-chat-overlay").style.display = "none";
+}
