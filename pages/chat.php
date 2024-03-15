@@ -28,16 +28,15 @@ foreach($chatsSqlResponse as $chatRow) {
 
 
 //Acces check
-if (!isset($_GET["chatId"])) {
-  header("Location: chat.php?chatId=" . array_key_first($chats));
-  return;
-} else {
+if (isset($_GET["chatId"]) && count($chats) > 0) {
   //Check is user member of chat
   if (!array_key_exists($_GET["chatId"], $chats)) {
     header("Location: chat.php?chatId=" . array_key_first($chats));
     return;
   }
 }
+
+
 ?>
 
 
@@ -56,8 +55,6 @@ if (!isset($_GET["chatId"])) {
 
 <aside id="chat-room-aside">
   <div class="button-container">
-
-
     <?php
     foreach($chats as $chatId => $chat) {
       $shortChatName = substr($chat['name'], 0, 2);
@@ -67,12 +64,6 @@ if (!isset($_GET["chatId"])) {
       echo "</a>";
     }
     ?>
-
-
-
-
-
-
     <button class="Chat-room-buttons" onclick="openNewChatOverlay()">+</button>
   </div>
 </aside>
