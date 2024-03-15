@@ -48,6 +48,7 @@ if (isset($_GET["chatId"]) && count($chats) > 0) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="../js/chat.js"></script>
   <link rel="stylesheet" href="../style.css">
+  <script defer src="../js/bringText.js"></script>
 </head>
 <html>
 
@@ -86,7 +87,8 @@ if (isset($_GET["chatId"]) && count($chats) > 0) {
 </div>
 <section id="footer-Chat">
 <div id="type-balk">
-    <input type="text" id="input-field" placeholder="Start typing here...">
+    <input type="text" id="input-field" placeholder="Start typing here..." value="chatMessage">
+    <button id="button" onclick="javascript:alert('Hello World!')">Button</button>
 </div>
 </section>
 
