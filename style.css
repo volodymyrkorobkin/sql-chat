@@ -24,7 +24,7 @@ main {
 }
 
 
-#sign-up {
+#sign-up, #sign-in {
     width: 700px;
     height: 600px;
 
@@ -35,14 +35,14 @@ main {
     align-items: center;
 }
 
-#sign-up h1 {
+#sign-up h1, #sign-in h1{
     font-size: 48px;
     background-color: #D9D9D9;
     padding: 10px 20px;
     border-radius: 15px;
 }
 
-#sign-up form {
+#sign-up form, #sign-in form{
     display: flex;
     flex-direction: column;
 
@@ -54,7 +54,7 @@ main {
     width: 100%;
 }
 
-#sign-up form input {
+#sign-up form input, #sign-in form input{
     margin-bottom: 10px;
     padding: 10px;
     font-size: 24px;
@@ -63,14 +63,14 @@ main {
     width: 100%;
 } 
 
-#sign-up form input[type="submit"] {
+#sign-up form input[type="submit"], #sign-in form input[type="submit"]{
     cursor: pointer;
     background-color: #4CAF50;
     color: white;
     margin: 10px 0;
 }
 
-#sign-up form input[type="submit"]:hover {
+#sign-up form input[type="submit"]:hover, #sign-in form input[type="submit"]:hover{
     background-color: #45a049;
     
 }

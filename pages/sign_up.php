@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isUserExists($username)) {
         echo "User already exists";
         return;
-    }
+    } 
 
     echo isUserExists($username) . "<br>";
 

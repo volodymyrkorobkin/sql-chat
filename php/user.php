@@ -10,3 +10,21 @@ function isUserExists($username) {
 
     return $result != false;
 }
+
+
+function isCredentialsCorrect($username, $password) {
+    $sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+    $params = [$username, $password];
+    $result = fetchSql($sql, $params);
+
+    return $result != false;
+}
+
+
+function getUserId($username) {
+    $sql = "SELECT id FROM users WHERE username = ?";
+    $params = [$username];
+    $result = fetchSql($sql, $params);
+
+    return $result['id'];
+}
