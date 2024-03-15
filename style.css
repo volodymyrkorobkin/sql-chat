@@ -92,7 +92,7 @@ main {
     border-left-style: none;
     height:100vh;
     z-index: 9998;
-    background-color: #45a049;
+    background-color: #290C37;
     width:92px;
     overflow-y: auto;
 }
@@ -112,14 +112,14 @@ main {
     width: 60px;
 }
 
-.header-Chat{
+#header-Chat{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
     height:6vh;
     border-bottom-style:solid;
     border-color: black;
-    background-color: red;
+    background-color: #59306C;
     
 }
     
@@ -132,6 +132,11 @@ main {
 #settings-Members{
 display: flex;
 flex-direction: row;
+align-items: center;
+}
+
+#menu-icon{
+    font-size: 27px;
 }
 
 #menu-toggle{
@@ -141,4 +146,38 @@ flex-direction: row;
 .text-Header{
     margin-top: auto;
     margin-bottom: auto;
+    font-size: 28px;
+}
+
+#menu-toggle {
+    display:none;
+}
+    
+#menu-toggle:checked ~ #navMain {
+      display: flex;
+      flex-direction: column;
+      width: 27%;
+}
+    
+#navMain {
+      display: none;
+      position: absolute;
+      top: 6%;
+      z-index: 9998;
+      background-color: purple;
+      left:74vw;
+    
+}
+    
+#navMain > a {
+      text-decoration: none;
+      margin: 10px;
+      font-size: 40px;
+      font-weight: 400;
+      font-style: normal;
+      text-align: center;
+}
+    
+#navMain a:hover {
+      color: var(--backgroundColour);
 }
