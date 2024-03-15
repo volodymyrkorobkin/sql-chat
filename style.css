@@ -80,10 +80,8 @@ main {
 
 
 
-aside {
-    display: flex;
+.chat-room-aside {
     float: left;
-    flex-direction: column;
     flex-wrap: wrap;
     align-content: flex-start;
     border-style: inset;
@@ -95,6 +93,8 @@ aside {
     height:100vh;
     z-index: 9998;
     background-color: #45a049;
+    width:150px;
+    overflow-y: auto;
 }
 
 .Chat-room-buttons {
@@ -107,8 +107,8 @@ aside {
     margin: 4px 2px;
     cursor:pointer;
     scroll-behavior: auto;
-    height: 60px;
-    width: 60px;
+    height: 120px;
+    width: 120px;
 }
 
 .header-Chat{
@@ -118,3 +118,11 @@ aside {
     background-color: red;
 }
     
+.button-container{
+    display:flex;
+    flex-direction: column;
+}
+
+.chat-room-aside::-webkit-scrollbar {
+    display: none;
+}

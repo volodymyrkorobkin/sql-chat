@@ -9,7 +9,8 @@
 <html>
 <body>
 
-<aside>
+<aside class="chat-room-aside">
+<div class="button-container">
 <button class="Chat-room-buttons">1</button>
 <button class="Chat-room-buttons">2</button>
 <button class="Chat-room-buttons">3</button>
@@ -19,9 +20,11 @@
 <button class="Chat-room-buttons">7</button>
 <button class="Chat-room-buttons">8</button>
 <button class="Chat-room-buttons">9</button>
+</div>
 </aside>
 <header class="header-Chat">
-dit is een header
+<p>CHAT GROUP NAME RAAAH </p>
+<h1>5 :members<h1>
 </header>
 
 
