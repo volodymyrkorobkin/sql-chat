@@ -29,3 +29,6 @@ $session = $_POST['session'];
 $chatId = createNewChat($chatName);
 addUserToChat(getUserBySession($session), $chatId);
 
+
+header("Location: ../pages/chat.php");
+
