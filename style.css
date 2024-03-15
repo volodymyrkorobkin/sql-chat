@@ -14,6 +14,7 @@ main {
     width: 100%;
     min-height: 100vh;
     margin: auto;
+    display: flex;
 }
 
 
@@ -23,8 +24,15 @@ main {
     align-items: center;
 }
 
+#chat-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
 
-#sign-up, #sign-in {
+
+#sign-up,
+#sign-in {
     width: 700px;
     height: 600px;
 
@@ -35,14 +43,16 @@ main {
     align-items: center;
 }
 
-#sign-up h1, #sign-in h1{
+#sign-up h1,
+#sign-in h1 {
     font-size: 48px;
     background-color: #D9D9D9;
     padding: 10px 20px;
     border-radius: 15px;
 }
 
-#sign-up form, #sign-in form{
+#sign-up form,
+#sign-in form {
     display: flex;
     flex-direction: column;
 
@@ -54,25 +64,28 @@ main {
     width: 100%;
 }
 
-#sign-up form input, #sign-in form input{
+#sign-up form input,
+#sign-in form input {
     margin-bottom: 10px;
     padding: 10px;
     font-size: 24px;
     border-radius: 10px;
     border: none;
     width: 100%;
-} 
+}
 
-#sign-up form input[type="submit"], #sign-in form input[type="submit"]{
+#sign-up form input[type="submit"],
+#sign-in form input[type="submit"] {
     cursor: pointer;
     background-color: #4CAF50;
     color: white;
     margin: 10px 0;
 }
 
-#sign-up form input[type="submit"]:hover, #sign-in form input[type="submit"]:hover{
+#sign-up form input[type="submit"]:hover,
+#sign-in form input[type="submit"]:hover {
     background-color: #45a049;
-    
+
 }
 
 
@@ -90,10 +103,10 @@ main {
     border-right-style: solid;
     border-bottom-style: none;
     border-left-style: none;
-    height:100vh;
+    height: 100vh;
     z-index: 9998;
     background-color: #290C37;
-    width:  81px;
+    width: 81px;
     overflow-y: auto;
 }
 
@@ -114,19 +127,19 @@ main {
     font-size: 20px;
 }
 
-#header-Chat{
-    display:flex;
+#header-Chat {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height:6vh;
-    border-bottom-style:solid;
+    height: 6vh;
+    border-bottom-style: solid;
     border-color: black;
     background-color: #59306C;
-    
+
 }
 
-.button-container{
-    display:flex;
+.button-container {
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -134,56 +147,58 @@ main {
 
 /*  shork menu */
 
-#settings-Members{
+#settings-Members {
     display: flex;
     flex-direction: row;
 }
 
-#menu-toggle{
-    display:none;   
+#menu-toggle {
+    display: none;
 }
 
-.text-Header{
+.text-Header {
     margin-top: auto;
     margin-bottom: auto;
+    margin-left: 10px;
 }
 
 
 #menu-toggle {
-    display:none;
+    display: none;
 }
-    
-#menu-toggle:checked ~ #navMain {
-      display: flex;
-      flex-direction: column;
-      width: 27%;
+
+#menu-toggle:checked~#navMain {
+    display: flex;
+    flex-direction: column;
+    width: 27%;
 }
-    
+
 #navMain {
-      display: none;
-      position: absolute;
-      top: 6%;
-      z-index: 9998;
-      background-color: purple;
-      left:74vw;
-    
+    display: none;
+    position: absolute;
+    top: 6%;
+    z-index: 9998;
+    background-color: purple;
+    right: 0;
+
 }
-    
-#navMain > a {
-      text-decoration: none;
-      margin: 10px;
-      font-size: 40px;
-      font-weight: 400;
-      font-style: normal;
-      text-align: center;
+
+#navMain>a {
+    text-decoration: none;
+    margin: 10px;
+    font-size: 40px;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
 }
-    
+
 #navMain a:hover {
-      color: var(--backgroundColour);
+    color: var(--backgroundColour);
 }
+
 /* text area*/
-#text-area{
-    height:87vh;
+#text-area {
+    height: 87vh;
 }
 
 
@@ -195,7 +210,7 @@ main {
     text-align: center;
 }
 
-#type-balk{
+#type-balk {
     align-items: center;
     align-content: center;
     text-align: center;
@@ -210,7 +225,7 @@ main {
     text-decoration: white;
     background-color: #290C37;
     color: white;
-    font-size:20px;
+    font-size: 20px;
 }
 
 #button{
@@ -256,12 +271,13 @@ New chat overlay
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;    
+    align-items: center;
 
     justify-content: space-between;
 }
 
-#new-chat-overlay-content form input, #new-chat-overlay-content form button{
+#new-chat-overlay-content form input,
+#new-chat-overlay-content form button {
     width: 75%;
     padding: 10px;
     margin-bottom: 10px;
@@ -272,7 +288,7 @@ New chat overlay
 }
 
 
-.hiden{
+.hiden {
     display: none;
 }
 
@@ -288,20 +304,30 @@ New chat overlay
     cursor: pointer;
 
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #new-chat-overlay-content form section {
     display: flex;
     gap: 20px;
     width: 100%;
-align-items: center;
+    align-items: center;
 }
 
-#menu-icon{
+#menu-icon {
     font-size: 27px;
+    padding: 10px;
+
+    user-select: none;
+    cursor: pointer;
+
 }
 
-#new-chat-overlay-content form input[type="submit"], #new-chat-overlay-content form button {
+#new-chat-overlay-content form input[type="submit"],
+#new-chat-overlay-content form button {
     cursor: pointer;
     background-color: #4CAF50;
     color: white;
