@@ -1,5 +1,6 @@
 <?php
 include_once '../php/session.php';
+include_once '../php/chat.php';
 
 // Session check
 session_start();
@@ -12,9 +13,31 @@ if (!isValidSession($_SESSION["id"])) {
   return;
 }
 
-// Chatroom logic
+// Sidebar
+$chats = [];
+$chatsSqlResponse = getUserChats(getUserBySession($_SESSION["id"]));
+
+foreach($chatsSqlResponse as $chatRow) {
+  $chatId = $chatRow['chatId'];
+  $chatName = getChatNameById($chatId);
+
+  $chats[$chatId] = [
+    "name" => $chatName
+  ];
+}
 
 
+//Acces check
+if (!isset($_GET["chatId"])) {
+  header("Location: chat.php?chatId=" . array_key_first($chats));
+  return;
+} else {
+  //Check is user member of chat
+  if (!array_key_exists($_GET["chatId"], $chats)) {
+    header("Location: chat.php?chatId=" . array_key_first($chats));
+    return;
+  }
+}
 ?>
 
 
@@ -33,15 +56,21 @@ if (!isValidSession($_SESSION["id"])) {
 
 <aside id="chat-room-aside">
   <div class="button-container">
-    <button class="Chat-room-buttons">1</button>
-    <button class="Chat-room-buttons">2</button>
-    <button class="Chat-room-buttons">3</button>
-    <button class="Chat-room-buttons">4</button>
-    <button class="Chat-room-buttons">5</button>
-    <button class="Chat-room-buttons">6</button>
-    <button class="Chat-room-buttons">7</button>
-    <button class="Chat-room-buttons">8</button>
-    <button class="Chat-room-buttons">9</button>
+
+
+    <?php
+    foreach($chats as $chatId => $chat) {
+      $shortChatName = substr($chat['name'], 0, 2);
+
+      echo "<a href='?chatId={$chatId}'>";
+      echo "<button class='Chat-room-buttons'>{$shortChatName}</button>";
+      echo "</a>";
+    }
+    ?>
+
+
+
+
 
 
     <button class="Chat-room-buttons" onclick="openNewChatOverlay()">+</button>
@@ -75,7 +104,9 @@ if (!isValidSession($_SESSION["id"])) {
   <section id="new-chat-overlay">
     <section id="new-chat-overlay-content">
       <h2>Create a new chat</h2>
-      <form action="" method="get">
+      <form action="../api/createNewChat.php" method="post">
+        <input type="text" name="session" value="<?php echo $_SESSION['id']?>" class="hiden">
+
         <input type="file" id="new-chat-img" name="new-chat-img" class="hiden">
         <label for="new-chat-img" class="img">Upload an image</label>
         <label for="new-chat-name"></label>
