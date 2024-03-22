@@ -150,6 +150,7 @@ main {
 #settings-Members {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 #menu-toggle {
@@ -199,6 +200,9 @@ main {
 /* text area*/
 #text-area {
     height: 87vh;
+    overflow: scroll;
+    margin:2px;
+    overflow-x: hidden;
 }
 
 
@@ -340,3 +344,84 @@ New chat overlay
     background-color: #f44336 !important;
     font-size: 28px;
 }
+
+  
+  .LeftStroke {
+    display: flex;
+    flex-direction: row;
+    width:84vw;
+  }
+
+  .RightStroke{
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .leftMessage {
+    border: 2px solid #dedede;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    width:auto;
+    max-width: 100%;
+    word-break: break-all;
+  }
+
+  .rightMessage {
+    border: 2px solid #dedede;
+    background-color: gray;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+
+  .profilePicture {
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    border-radius: 50%;
+    
+  }
+
+  .time-left {
+    float: right;
+    color: #000;
+    position: relative;
+    top: 14px;
+    left: 7px;
+    font-size: 12px;
+}
+  
+  .container::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+
+  
+
+  
+  /*.time-right {
+    float: right;
+    color: #aaa;
+  }
+    .container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+  }
+
+    .rightMessage {
+    border-color: #ccc;
+    background-color: #ddd;
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  */
+

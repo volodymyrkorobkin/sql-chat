@@ -94,6 +94,7 @@ if (isset ($_GET["chatId"]) && count($chats) > 0) {
         </article>
       </section>
       <div id="text-area">
+      <!-- messages -->
       </div>
       <section id="footer-Chat">
       <div id="type-balk">
