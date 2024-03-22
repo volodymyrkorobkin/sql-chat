@@ -11,19 +11,13 @@ if (!$session) {
     return;
 }
 
-if (!isset($_POST['chatId'])) {
+if (!isset($_GET['chatId'])) {
     echo "No chat id";
     return;
 }
 
-if (!isset($_POST['lastMessageId'])) {
-    echo "No last message id";
-    return;
-}
-
 $userId = getUserBySession($session);
-$chatId = $_POST['chatId'];
-$lastMessageId = $_POST['lastMessageId'];
+$chatId = $_GET['chatId'];
 
 $chatUsers = getChatUsers($chatId);
 
@@ -33,8 +27,8 @@ if (!in_array($userId, $chatUsers)) {
 }
 
 
-$sql = "SELECT * FROM messages WHERE chatId = ? AND id > ? LIMIT 25";
-$params = [$chatId, $lastMessageId];
+$sql = "SELECT * FROM (SELECT * FROM messages WHERE chatId = ? ORDER BY messageId DESC LIMIT 25) AS subquery ORDER BY messageId ASC;";
+$params = [$chatId];
 $result = fetchSqlAll($sql, $params);
 
 echo json_encode($result);

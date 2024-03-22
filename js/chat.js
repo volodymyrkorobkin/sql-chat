@@ -37,6 +37,26 @@ class Chat {
     }
 
 
+    getInitialMessages() {
+        // Get initial messages from the server
+        // Update the chat with the initial messages
+        fetch(`../api/getInitialMessages.php?chatId=${chatId}`, {
+            method: 'GET',
+        })
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(message => {
+                let messageObj = new Message(message.messageId, message.sender, message.time, message.body);
+                this.messages.push(messageObj);
+                this.displayMessage(messageObj);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+
     displayMessage(message) {
         // Display the message on the chat
     }
@@ -44,6 +64,10 @@ class Chat {
     sendMessage(message) {
         // Send the message to the server
         // Update the chat with the new message
+        let newMessage = new Message(null, userId, Date.now(), message);
+        this.messages.push(newMessage);
+        this.displayMessage(newMessage);
+
     }
 
     updatemessage(messageId) {
@@ -74,3 +98,22 @@ class Chat {
         // Display the chat on the screen
     }
 }
+
+let chat;
+
+addEventListener('DOMContentLoaded', () => {
+    if (typeof chatId === 'undefined') {
+        return;
+    }
+
+    chat = new Chat(chatId, "TODO", []);
+    chat.getInitialMessages();
+    chat.displayChat();
+});
+
+
+addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        console.log(chat.messages);
+    }
+});

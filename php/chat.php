@@ -33,6 +33,10 @@ function getChatUsers($chatId) {
     $params = [$chatId];
     $result = fetchSqlAll($sql, $params);
 
+    $result = array_map(function($item) {
+        return $item['userId'];
+    }, $result);
+
     return $result;
 }
 
