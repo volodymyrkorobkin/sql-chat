@@ -1,13 +1,16 @@
 <?php
+include_once 'session.php';
 
-session_start();
+function checkSession() {
+    session_start();
 
-if (!isset ($_SESSION["id"])) {
-    return;
+    if (!isset($_SESSION["id"])) {  
+        return false;
+    }
+    
+    if (!isValidSession($_SESSION["id"])) {
+        return false;
+    }
+    
+    return $_SESSION["id"];
 }
-
-if (!isValidSession($_SESSION["id"])) {
-    return;
-}
-
-$session = $_SESSION["id"];
