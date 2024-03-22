@@ -37,6 +37,11 @@ if (isset ($_GET["chatId"]) && count($chats) > 0) {
 }
 
 
+echo "<script>const session = {$_SESSION['id']};</script>";
+if (isset($_GET['chatId'])) echo "<script>const chatId = {$_GET['chatId']};</script>";
+echo "<script>const userId = " . getUserBySession($_SESSION["id"]) . ";</script>";
+
+
 ?>
 
 
