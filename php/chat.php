@@ -28,6 +28,14 @@ function getUserChats($userId) {
     return $result;
 }
 
+function getChatUsers($chatId) {
+    $sql = "SELECT userId FROM chatsMembers WHERE chatId = ?";
+    $params = [$chatId];
+    $result = fetchSqlAll($sql, $params);
+
+    return $result;
+}
+
 function getChatNameById($chatId) {
     $sql = "SELECT name FROM chats WHERE chatId = ?";
     $params = [$chatId];
