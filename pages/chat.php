@@ -97,8 +97,8 @@ if (isset ($_GET["chatId"]) && count($chats) > 0) {
       </div>
       <section id="footer-Chat">
       <div id="type-balk">
-    <input type="text" id="input-field" placeholder="Start typing here..." value="chatMessage">
-    <button id="button" onclick="javascript:alert('Hello World!')">Button</button>
+      <input type="text" id="input-field" placeholder="Start typing here...">
+      <button id="button" onclick="savedInput();">Submit</button>
 </div>
       </section>
     </section>
