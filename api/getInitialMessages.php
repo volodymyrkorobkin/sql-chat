@@ -9,10 +9,6 @@ include_once "../php/checkRequestKeys.php";
 include_once "../php/checkSession.php";
 
 
-print_r($_GET);
-print_r($_SESSION);
-
-
 $userId = getUserBySession($session);
 $chatId = $_GET['chatId'];
 

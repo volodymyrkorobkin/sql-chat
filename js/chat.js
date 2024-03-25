@@ -30,9 +30,8 @@ class Message {
 }
 
 class Chat {
-    constructor(chatId, name, messages = []) {
+    constructor(chatId, messages = []) {
         this.chatId = chatId;
-        this.name = name;
         this.messages = messages;
     }
 
@@ -74,10 +73,21 @@ class Chat {
     sendMessage(message) {
         // Send the message to the server
         // Update the chat with the new message
-        let newMessage = new Message(null, userId, Date.now(), message);
+        let newMessage = new Message(null, userId, new Date().toISOString().slice(0, 19).replace('T', ' '), message);
         this.messages.push(newMessage);
-        this.displayMessage(newMessage);
+        this.displayMessage(newMessage, 0);
 
+        fetch(`../api/sendMessage.php`, {
+            method: 'POST',
+            body: JSON.stringify({
+                chatId: chatId,
+                userId: userId,
+                body: newMessage.body
+            }),
+            
+        }).then(response => response.text()).then(data => {
+            console.log(data);
+        });
     }
 
     updatemessage(messageId) {
@@ -156,7 +166,7 @@ addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    chat = new Chat(chatId, "TODO", []);
+    chat = new Chat(chatId, []);
     chat.getInitialMessages();
 });
 
@@ -164,5 +174,4 @@ addEventListener('DOMContentLoaded', () => {
 function savedInput() {
     const savedInput = document.getElementById("input-field").value;
     chat.sendMessage(savedInput);
-    console.log("Saved input:", savedInput);
 }
