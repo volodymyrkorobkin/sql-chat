@@ -73,7 +73,7 @@ class Chat {
     sendMessage(message) {
         // Send the message to the server
         // Update the chat with the new message
-        let newMessage = new Message(null, userId, new Date().toISOString().slice(0, 19).replace('T', ' '), message);
+        let newMessage = new Message(null, userId, new Date().toLocaleString('en-US', { timeZone: 'Europe/Amsterdam' }), message);
         this.messages.push(newMessage);
         this.displayMessage(newMessage, 0);
 
