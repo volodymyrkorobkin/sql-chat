@@ -46,9 +46,10 @@ class Chat {
         .then(response => response.json())
         .then(data => {
             data.forEach(message => {
-                let messageObj = new Message(message.messageId, message.sender, message.time, message.body);
+                let messageObj = new Message(message.messageId, message.userId, message.sendTime, message.messageBody);
                 this.messages.push(messageObj);
-                this.displayMessage(messageObj);
+                
+                this.displayMessage(messageObj, 0);
             });
         })
         .catch(error => {
@@ -57,8 +58,17 @@ class Chat {
     }
 
 
-    displayMessage(message) {
-        // Display the message on the chat
+    displayMessage(message, index) {
+        const textArea = document.getElementById("text-area");
+        const messageCard = createMessageCard(message);
+
+        if (index === 0) {
+            textArea.appendChild(messageCard);
+        } else {
+            textArea.insertBefore(messageCard, textArea.querySelector(`#message-${this.messages[index].messageId}`));
+        }
+        
+        textArea.scrollTop = textArea.scrollHeight;
     }
 
     sendMessage(message) {
@@ -101,19 +111,58 @@ class Chat {
 
 let chat;
 
+
+function createMessageCard(message) {
+
+    // left-side of the message
+    let containerDiv = document.createElement("div");
+    containerDiv.id = "message-" + message.messageId
+    containerDiv.classList.add("LeftStroke");
+    let profilePictureImg = document.createElement("img");
+    profilePictureImg.src = "../img/YEAH.jpg";
+    profilePictureImg.alt = "avatar";
+    profilePictureImg.classList.add("profilePicture");
+    let leftMessageDiv = document.createElement("p");
+    leftMessageDiv.classList.add("leftMessage");
+    leftMessageDiv.innerText = message.body;
+    let time = document.createElement("div");  
+    time.classList.add("time-left");
+    time.innerHTML = message.time.split(" ")[1].split(":").slice(0, 2).join(":");
+
+
+    // Append elements
+    containerDiv.appendChild(profilePictureImg);
+    containerDiv.appendChild(leftMessageDiv);
+    leftMessageDiv.appendChild(time);
+
+    return containerDiv;
+}
+
+
 addEventListener('DOMContentLoaded', () => {
     if (typeof chatId === 'undefined') {
         return;
     }
 
+    const input = document.getElementById("input-field");
+    input.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            if (input.value.trim() !== "") { // Check if input is not empty
+                document.getElementById("button").click();
+                document.getElementById("input-field").value = "";
+            } else {
+                event.preventDefault();
+            }
+        }
+    });
+
     chat = new Chat(chatId, "TODO", []);
     chat.getInitialMessages();
-    chat.displayChat();
 });
 
 
-addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        console.log(chat.messages);
-    }
-});
+function savedInput() {
+    const savedInput = document.getElementById("input-field").value;
+    chat.sendMessage(savedInput);
+    console.log("Saved input:", savedInput);
+}
