@@ -81,6 +81,7 @@ $_POST = array();
                 
                 <input type="submit" value="Sign in" id="sign_in_submit">
             </form>
+            <p>Heb je geen account? <a href="sign_up.php">Sign up</a></p>
         </section>
     </main>
 </body>

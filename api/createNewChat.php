@@ -4,26 +4,14 @@ include_once '../php/sql_utils.php';
 include_once '../php/session.php';
 include_once '../php/chat.php';
 
-if (!isset($_POST['new-chat-name'])) {
-    echo "No chat name";
-    return;
-}
-
-if (!isset($_POST['session'])) {
-    echo "No session";
-    return;
-}
-
-if (!isValidSession($_POST['session'])) {
-    echo "Invalid session";
-    return;
-}
+// Check keys and session
+$requestKeys = ['new-chat-name'];
+include_once "../php/checkRequestKeys.php";
+include_once "../php/checkSession.php";
 
 
 $chatName = $_POST['new-chat-name'];
 $session = $_POST['session'];
-
-
 
 
 $chatId = createNewChat($chatName);

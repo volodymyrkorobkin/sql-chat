@@ -3,18 +3,15 @@ include_once '../php/sql_connect.php';
 include_once '../php/sql_utils.php';
 include_once '../php/chat.php';
 
-// Check if the session is set
+// Check keys and session
+$requestKeys = ['chatId'];
+include_once "../php/checkRequestKeys.php";
 include_once "../php/checkSession.php";
-$session = checkSession();
-if (!$session) {
-    echo "Invalid session";
-    return;
-}
 
-if (!isset($_GET['chatId'])) {
-    echo "No chat id";
-    return;
-}
+
+print_r($_GET);
+print_r($_SESSION);
+
 
 $userId = getUserBySession($session);
 $chatId = $_GET['chatId'];

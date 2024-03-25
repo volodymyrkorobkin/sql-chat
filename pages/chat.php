@@ -4,11 +4,7 @@ include_once '../php/chat.php';
 
 // Session check
 session_start();
-if (!isset ($_SESSION["id"])) {
-  header("Location: sign_in.php");
-  return;
-}
-if (!isValidSession($_SESSION["id"])) {
+if (!isset ($_SESSION["id"]) || !isValidSession($_SESSION["id"])) {
   header("Location: sign_in.php");
   return;
 }
@@ -54,7 +50,6 @@ echo "<script>const userId = " . getUserBySession($_SESSION["id"]) . ";</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="../js/chat.js"></script>
   <link rel="stylesheet" href="../style.css">
-  <script defer src="../js/bringText.js"></script>
 </head>
 <html>
 

@@ -1,16 +1,16 @@
 <?php
 include_once 'session.php';
 
-function checkSession() {
-    session_start();
+session_start();
 
-    if (!isset($_SESSION["id"])) {  
-        return false;
-    }
-    
-    if (!isValidSession($_SESSION["id"])) {
-        return false;
-    }
-    
-    return $_SESSION["id"];
+if (!isset($_SESSION["id"])) {
+    echo "No session";
+    exit();
 }
+
+if (!isValidSession($_SESSION["id"])) {
+    echo "Invalid session";
+    exit();
+}
+
+$session = $_SESSION["id"];
