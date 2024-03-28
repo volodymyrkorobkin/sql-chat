@@ -171,7 +171,6 @@ main {
 #menu-toggle:checked~#navMain {
     display: flex;
     flex-direction: column;
-    width: 27%;
 }
 
 #navMain {
@@ -194,7 +193,8 @@ main {
 }
 
 #navMain a:hover {
-    color: var(--backgroundColour);
+    color: white;
+    cursor: pointer;
 }
 
 /* text area*/
