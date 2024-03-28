@@ -80,7 +80,7 @@ $_POST = array();
                 <input type="password" name="password" placeholder="Password" required>
                 
                 <input type="submit" value="Sign in" id="sign_in_submit">
-            </form>
+            </form> 
             <p>Heb je geen account? <a href="sign_up.php">Sign up</a></p>
         </section>
     </main>

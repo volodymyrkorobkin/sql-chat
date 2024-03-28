@@ -3,6 +3,8 @@ include_once 'session.php';
 
 session_start();
 
+session_write_close();
+
 if (!isset($_SESSION["id"])) {
     echo "No session";
     exit();

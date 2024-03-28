@@ -12,6 +12,8 @@ function validateSignUp() {
     return true;
 }
 
+
+
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('sign_up_form').addEventListener('submit', async function(event) {
         if (!validateSignUp()) {

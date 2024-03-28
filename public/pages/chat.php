@@ -1,6 +1,8 @@
 <?php
 include_once '../php/session.php';
+
 include_once '../php/chat.php';
+include_once '../php/user.php';
 
 // Session check
 session_start();
@@ -36,6 +38,7 @@ if (isset ($_GET["chatId"]) && count($chats) > 0) {
 echo "<script>const session = '{$_SESSION['id']}';</script>";
 if (isset($_GET['chatId'])) echo "<script>const chatId = {$_GET['chatId']};</script>";
 echo "<script>const userId = " . getUserBySession($_SESSION["id"]) . ";</script>";
+echo "<script>const username = '" . getUserById(getUserBySession($_SESSION["id"]))['username'] . "'</script>";
 
 
 ?>
@@ -48,7 +51,7 @@ echo "<script>const userId = " . getUserBySession($_SESSION["id"]) . ";</script>
   <meta charset="utf-8">
   <title>Chatroom</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="../js/chat.js"></script>
+  <script src="/js/chat.js"></script>
   <link rel="stylesheet" href="../style.css">
 </head>
 <html>

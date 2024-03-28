@@ -28,3 +28,11 @@ function getUserId($username) {
 
     return $result['id'];
 }
+
+function getUserById($userId) {
+    $sql = "SELECT * FROM users WHERE id = ?";
+    $params = [$userId];
+    $result = fetchSql($sql, $params);
+
+    return $result;
+}

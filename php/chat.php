@@ -47,3 +47,22 @@ function getChatNameById($chatId) {
 
     return $result['name'];
 }
+
+function createInviteLink($chatId) {
+    $inviteLink = bin2hex(random_bytes(8));
+    $sql = "INSERT INTO inviteLinks (linkCode, chatId) VALUES (?, ?)";
+    $params = [$inviteLink, $chatId];
+
+    runSql($sql, $params);
+
+    return $inviteLink;
+}
+
+
+function getChatIdByInvite($inviteLink) {
+    $sql = "SELECT chatId FROM inviteLinks WHERE linkCode = ?";
+    $params = [$inviteLink];
+    $result = fetchSql($sql, $params);
+
+    return $result['chatId'];
+}
