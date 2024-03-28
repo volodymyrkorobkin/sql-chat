@@ -68,7 +68,7 @@ function checkForUpdates() {
                     "userId" => $message["userId"],
                     "username" => $message["username"],
                     "messageBody" => $message["messageBody"],
-                    "sendTime" => $sendTime
+                    "sendTime" => $sendTime - 3600
                 ];
 
                 $cleanResult[] = $cleanMessage;

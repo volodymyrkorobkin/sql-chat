@@ -1,5 +1,5 @@
 // Utils
-function secondsSinceEpoch(){ return Math.floor( Date.now() / 1000 ) + 3600}
+function secondsSinceEpoch(){ return Math.floor( Date.now() / 1000 )}
 function formatTime(epochSeconds) {
     const date = new Date(epochSeconds * 1000);
     return date.toLocaleDateString("en-US", {hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false }).split(", ")[1];
@@ -45,6 +45,12 @@ class Message {
         this.htmlObj = containerDiv;
     
         return containerDiv;
+    }
+
+    updateTime() {
+        if (!this.htmlObj) return;
+        const time = this.htmlObj.querySelector(".time-left");
+        time.innerHTML = formatTime(this.sendTime);
     }
 }
 
@@ -258,6 +264,8 @@ class Chat {
         // If the message is in the same place do nothing
         if (index === messageIndex) {
             this.messagesIds.add(message.messageId);
+
+            message.updateTime();
             return;
         }
         
