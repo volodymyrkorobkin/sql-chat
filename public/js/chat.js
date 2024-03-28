@@ -290,7 +290,14 @@ class Chat {
             const messageObj = new Message(message.messageId, message.userId, message.username, message.sendTime, message.messageBody);
             
             if (!this.isMessageSending(messageObj) && !this.messagesIds.has(messageObj.messageId)) {
-                this.insertMessage(messageObj);                
+                // Check if textarea is scrolled to the bottom
+
+                const isScrolledToBottom = this.messagesTextArea.scrollHeight - this.messagesTextArea.scrollTop - this.messagesTextArea.clientHeight < 20;
+                this.insertMessage(messageObj);     
+                
+                if (isScrolledToBottom) {
+                    this.messagesTextArea.scrollTop = this.messagesTextArea.scrollHeight;
+                }
             }
         });
     }
