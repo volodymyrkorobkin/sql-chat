@@ -206,6 +206,7 @@ main {
     overflow-y: auto;
 
     position: relative;
+    scroll-behavior: auto;
 }
 
 
