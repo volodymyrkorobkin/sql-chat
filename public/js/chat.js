@@ -62,7 +62,6 @@ class Chat {
         this.sendingMessages = new Set();
         this.messagesIds = new Set();
         
-        this.initObserver();
         this.initChat();
     }
 
@@ -73,23 +72,9 @@ class Chat {
         await this.loadInitialChatMessages();
         this.startLongPolling(); // Start long polling updates
         this.startProcessingMessagesLoop();
+        this.loadPreviousMessagesLoop();
     }
-
-    initObserver() {
-        this.observer = new IntersectionObserver(this.handleVisibilityChange, {
-            root: null,
-            threshold: 0.1,
-        });
-    }
-
-    handleVisibilityChange = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                this.loadPreviousMessages();
-                observer.unobserve(entry.target);
-            }
-        });
-    }
+    
 
     async loadInitialChatMessages() {
         const messages = await this.fetchInitialChatMessages();
@@ -98,7 +83,6 @@ class Chat {
         }
 
         this.messagesTextArea.scrollTop = this.messagesTextArea.scrollHeight;
-        if (this.messages.length >= 25) this.observer.observe(this.messages[14].htmlObj);
     }
 
     async fetchInitialChatMessages() {
@@ -154,8 +138,6 @@ class Chat {
             this.insertMessage(message);
         }
         this.messagesTextArea.scrollTop = scrollTop + this.messagesTextArea.scrollHeight - scrollHeight;
-
-        this.observer.observe(this.messages[14].htmlObj);
     }
 
     async fetchPreviousMessages() {
@@ -336,6 +318,18 @@ class Chat {
 
             } catch (error) {
                 console.error('Fetch error: ', error);
+            }
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+    }
+
+    async loadPreviousMessagesLoop() {
+        if (this.messages.length < 21) return;
+        let observedElement = this.messages[20].htmlObj;
+        while (true) {
+            if (this.messagesTextArea.scrollTop - observedElement.offsetTop < 0) {
+                await this.loadPreviousMessages();
+                observedElement = this.messages[20].htmlObj;
             }
             await new Promise(resolve => setTimeout(resolve, 100));
         }

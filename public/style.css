@@ -204,6 +204,8 @@ main {
     margin:2px;
     overflow-x: hidden;
     overflow-y: auto;
+
+    position: relative;
 }
 
 
