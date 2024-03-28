@@ -138,10 +138,6 @@ class Chat {
             this.insertMessage(message);
         }
         this.messagesTextArea.scrollTop = scrollTop + this.messagesTextArea.scrollHeight - scrollHeight;
-
-        setTimeout(() => {
-            this.messagesTextArea.scrollTop = scrollTop + this.messagesTextArea.scrollHeight - scrollHeight;
-        }, 1);
     }
 
     async fetchPreviousMessages() {
