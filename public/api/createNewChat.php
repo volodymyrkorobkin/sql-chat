@@ -18,5 +18,5 @@ $chatId = createNewChat($chatName);
 addUserToChat(getUserBySession($session), $chatId);
 
 
-header("Location: ../pages/chat.php");
+header("Location: ../pages/chat.php?chatId=$chatId");
 
