@@ -38,18 +38,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return;
     } 
 
-    echo isUserExists($username) . "<br>";
-
-    echo $password . "<br>";
     $password = hash('sha256', $password . $username);
-    echo $password . "<br>";
-    
     $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
     $params = [$username, $password];
 
     runSql($sql, $params);
 
-    header("Location: sign_in.php");
+    $userId = getUserId($username);
+    $sessionId = createUserSession($userId);
+
+    $_SESSION["id"] = $sessionId;
+
+    header("Location: chat.php");
+
+    //header("Location: sign_in.php");
 }
 ?>
 
