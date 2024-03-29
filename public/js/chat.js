@@ -73,6 +73,14 @@ class Chat {
         this.startLongPolling(); // Start long polling updates
         this.startProcessingMessagesLoop();
         this.loadPreviousMessagesLoop();
+
+        setInterval(() => {
+            const element = document.querySelector("#settings-Members .text-Header");
+
+            element.innerText = this.messagesTextArea.scrollTop;
+
+            console.log(this.messagesTextArea.scrollHeight - this.messagesTextArea.scrollTop - this.messagesTextArea.clientHeight);
+        }, 10);
     }
     
 
@@ -137,7 +145,8 @@ class Chat {
         for (let message of messages) {
             this.insertMessage(message);
         }
-        this.messagesTextArea.scrollTop = scrollTop + this.messagesTextArea.scrollHeight - scrollHeight;
+        //this.messagesTextArea.scrollTop = scrollTop + this.messagesTextArea.scrollHeight - scrollHeight;
+        this.messagesTextArea.scroll(0, scrollTop + this.messagesTextArea.scrollHeight - scrollHeight);
     }
 
     async fetchPreviousMessages() {
