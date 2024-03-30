@@ -63,6 +63,7 @@ class Chat {
         this.messagesIds = new Set();
         
         this.initChat();
+        this.i = 0;
     }
 
     async initChat() { 
@@ -77,7 +78,7 @@ class Chat {
         setInterval(() => {
             const element = document.querySelector("#settings-Members .text-Header");
 
-            element.innerText = this.messagesTextArea.scrollTop;
+            element.innerText = i + " " + this.messagesTextArea.scrollTop;
 
             console.log(this.messagesTextArea.scrollHeight - this.messagesTextArea.scrollTop - this.messagesTextArea.clientHeight);
         }, 10);
@@ -146,6 +147,7 @@ class Chat {
             this.insertMessage(message);
         }
         //this.messagesTextArea.scrollTop = scrollTop + this.messagesTextArea.scrollHeight - scrollHeight;
+        this.i++;
         this.messagesTextArea.scroll(0, scrollTop + this.messagesTextArea.scrollHeight - scrollHeight);
     }
 
