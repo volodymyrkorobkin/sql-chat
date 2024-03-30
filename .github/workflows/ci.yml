@@ -1,0 +1,26 @@
+name: Deploy PHP App
+
+on:
+  push:
+    branches:
+      - docker-update
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Deploy to Server
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} -p ${{ secrets.SERVER_PORT | 22 }} << 'EOF'
+          cd /home/sql-chat
+          git pull
+          docker-compose down
+          docker-compose up -d --build
+        EOF
