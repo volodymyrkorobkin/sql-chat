@@ -12,10 +12,15 @@ include_once "../php/checkSession.php";
 $invite = $_GET['invite'];
 
 $chatId = getChatIdByInvite($invite);
-
 if ($chatId == null) {
     echo "Invalid invite";
     return;
 }
 
-addUserToChat(getUserBySession($session), $chatId);
+$userId = getUserBySession($session);
+$chatUsers = getChatUsers($chatId);
+
+if (!in_array($userId, $chatUsers)) {
+    addUserToChat(getUserBySession($session), $chatId);
+}
+header("Location: ../pages/chat.php?chatId=$chatId");
