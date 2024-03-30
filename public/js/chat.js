@@ -63,7 +63,6 @@ class Chat {
         this.messagesIds = new Set();
         
         this.initChat();
-        this.i = 0;
     }
 
     async initChat() { 
@@ -74,14 +73,6 @@ class Chat {
         this.startLongPolling(); // Start long polling updates
         this.startProcessingMessagesLoop();
         this.loadPreviousMessagesLoop();
-
-        setInterval(() => {
-            const element = document.querySelector("#settings-Members .text-Header");
-
-            element.innerText = this.i + " " + this.messagesTextArea.scrollTop;
-
-            console.log(this.messagesTextArea.scrollHeight - this.messagesTextArea.scrollTop - this.messagesTextArea.clientHeight);
-        }, 10);
     }
     
 
@@ -146,9 +137,15 @@ class Chat {
         for (let message of messages) {
             this.insertMessage(message);
         }
-        //this.messagesTextArea.scrollTop = scrollTop + this.messagesTextArea.scrollHeight - scrollHeight;
-        this.i++;
-        this.messagesTextArea.scroll(0, scrollTop + this.messagesTextArea.scrollHeight - scrollHeight);
+
+
+        this.messagesTextArea.style.overflowY = 'hidden';  
+        // I spent about 6 hours to find this solution
+        // I hate Apple, and their stupid engine 
+        // -Vova
+
+        this.messagesTextArea.scrollTop = scrollTop + this.messagesTextArea.scrollHeight - scrollHeight;
+        this.messagesTextArea.style.overflowY = 'auto';
     }
 
     async fetchPreviousMessages() {
@@ -342,7 +339,7 @@ class Chat {
                 await this.loadPreviousMessages();
                 observedElement = this.messages[20].htmlObj;
             }
-            await new Promise(resolve => setTimeout(resolve, 100));
+            await new Promise(resolve => setTimeout(resolve, 500));
         }
     }
 }

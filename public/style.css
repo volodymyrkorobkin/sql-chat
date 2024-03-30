@@ -204,6 +204,7 @@ main {
     margin:2px;
     overflow-x: hidden;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 
     position: relative;
     scroll-behavior: auto;
