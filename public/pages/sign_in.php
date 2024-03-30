@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //:TODO: Better feedback for the user
     if (!isCredentialsCorrect($username, $password)) {
-        echo "Credentials are correct";
+        echo "Credentials are not correct";
     }
     
     $userId = getUserId($username);
