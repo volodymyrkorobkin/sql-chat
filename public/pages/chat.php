@@ -86,7 +86,7 @@ echo "<script>const username = '" . getUserById(getUserBySession($_SESSION["id"]
           ?>
         </h1>
         <article id="settings-Members">
-          <h1 class="text-Header">5 :members</h1>
+          <h1 class="text-Header">5 members</h1>
           <input type="checkbox" id="menu-toggle">
           <label for="menu-toggle" id="menu-icon">&#129416;</label>
           <nav id="navMain">
