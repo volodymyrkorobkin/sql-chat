@@ -12,7 +12,7 @@ body {
 
 main {
     width: 100%;
-    min-height: 100vh;
+    min-height: 100dvh;
     margin: auto;
     display: flex;
 }
@@ -103,7 +103,7 @@ main {
     border-right-style: solid;
     border-bottom-style: none;
     border-left-style: none;
-    height: 100vh;
+    height: 100dvh;
     z-index: 9998;
     background-color: #290C37;
     width: 81px;

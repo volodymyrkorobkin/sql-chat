@@ -139,13 +139,15 @@ class Chat {
         }
 
 
-        this.messagesTextArea.style.overflowY = 'hidden';  
-        // I spent about 6 hours to find this solution
-        // I hate Apple, and their stupid engine 
-        // -Vova
+        // Do it only on ios devices
 
-        this.messagesTextArea.scrollTop = scrollTop + this.messagesTextArea.scrollHeight - scrollHeight;
-        this.messagesTextArea.style.overflowY = 'auto';
+        if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+            this.messagesTextArea.style.overflowY = 'hidden';  
+            this.messagesTextArea.scrollTop = scrollTop + this.messagesTextArea.scrollHeight - scrollHeight;
+            this.messagesTextArea.style.overflowY = 'auto';
+        } else {
+            this.messagesTextArea.scrollTop = scrollTop + this.messagesTextArea.scrollHeight - scrollHeight;
+        }
     }
 
     async fetchPreviousMessages() {
