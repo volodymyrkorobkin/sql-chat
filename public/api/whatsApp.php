@@ -28,6 +28,11 @@ header('Cache-Control: no-cache');
 
 $startTime = time();
 while (true) {
+    if (connection_status() != CONNECTION_NORMAL) {
+        break;
+    }
+
+
     $newData = checkForUpdates();
 
     if ($newData) {
