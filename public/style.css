@@ -110,6 +110,10 @@ main {
     overflow-y: auto;
 }
 
+.active {
+    background-color: #59306C !important;
+}
+
 
 .Chat-room-buttons {
     border-radius: 50%;

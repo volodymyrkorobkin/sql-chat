@@ -64,9 +64,13 @@ echo "<script>const username = '" . getUserById(getUserBySession($_SESSION["id"]
         foreach ($chats as $chatId => $chat) {
           $shortChatName = substr($chat['name'], 0, 2);
 
-          echo "<a href='?chatId={$chatId}'>";
-          echo "<button class='Chat-room-buttons'>{$shortChatName}</button>";
-          echo "</a>";
+          ?>
+
+          <a href='?chatId=<?php echo $chatId ?>'>
+            <button class='Chat-room-buttons<?php if (isset($_GET['chatId']) && $_GET["chatId"] == $chatId) echo " active"; ?>'><?php echo $shortChatName ?></button>
+          </a>
+
+          <?php
         }
         ?>
         <button class="Chat-room-buttons" onclick="openNewChatOverlay()">+</button>
