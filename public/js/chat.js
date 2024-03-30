@@ -78,7 +78,7 @@ class Chat {
         setInterval(() => {
             const element = document.querySelector("#settings-Members .text-Header");
 
-            element.innerText = i + " " + this.messagesTextArea.scrollTop;
+            element.innerText = this.i + " " + this.messagesTextArea.scrollTop;
 
             console.log(this.messagesTextArea.scrollHeight - this.messagesTextArea.scrollTop - this.messagesTextArea.clientHeight);
         }, 10);
