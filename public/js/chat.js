@@ -373,6 +373,7 @@ addEventListener('DOMContentLoaded', () => {
 
 function openNewChatOverlay() {
     document.getElementById("new-chat-overlay").style.display = "flex";
+    document.getElementById("new-chat-name").focus();
 }
 function closeNewChatOverlay() {
     document.getElementById("new-chat-overlay").style.display = "none";
