@@ -135,7 +135,7 @@ main {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 6vh;
+    height: 6dvh;
     border-bottom-style: solid;
     border-color: black;
     background-color: #59306C;
@@ -203,7 +203,7 @@ main {
 
 /* text area*/
 #text-area {
-    height: 87vh;
+    height: 87dvh;
     overflow: scroll;
     margin:2px;
     overflow-x: hidden;
@@ -232,7 +232,7 @@ main {
 #input-field {
     width: 82vw;
     border-radius: 15px;
-    height: 5vh;
+    height: 5dvh;
     align-items: center;
     align-content: center;
     text-decoration: white;
