@@ -148,6 +148,8 @@ class Chat {
         } else {
             this.messagesTextArea.scrollTop = scrollTop + this.messagesTextArea.scrollHeight - scrollHeight;
         }
+
+        return messages.length;
     }
 
     async fetchPreviousMessages() {
@@ -338,7 +340,11 @@ class Chat {
         let observedElement = this.messages[20].htmlObj;
         while (true) {
             if (this.messagesTextArea.scrollTop - observedElement.offsetTop < 0) {
-                await this.loadPreviousMessages();
+                let loadedCnt = await this.loadPreviousMessages();
+
+                if (loadedCnt === 0) {
+                    return;
+                }
                 observedElement = this.messages[20].htmlObj;
             }
             await new Promise(resolve => setTimeout(resolve, 500));
