@@ -233,9 +233,8 @@ class Chat {
 
     async startProcessingMessagesLoop() {
         while (true) {
-            await this.sendQueuedMessages();
-
             while (this.sendMessagesQueue.length == 0) await new Promise(resolve => setTimeout(resolve, 100));
+            await this.sendQueuedMessages();
         }
     }
 
