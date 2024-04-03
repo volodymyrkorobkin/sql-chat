@@ -60,14 +60,13 @@ function checkForUpdates() {
             $cleanResult = [];
 
             foreach ($updates["newMessages"] as $message) {
-                $sendTime = strtotime($message["sendTime"]);
                 $cleanMessage = [
                     "messageId" => $message["messageId"],
                     "chatId" => $message["chatId"],
                     "userId" => $message["userId"],
                     "username" => $message["username"],
                     "messageBody" => $message["messageBody"],
-                    "sendTime" => $sendTime - 3600
+                    "sendTime" => $message["sendTime"]
                 ];
 
                 $cleanResult[] = $cleanMessage;

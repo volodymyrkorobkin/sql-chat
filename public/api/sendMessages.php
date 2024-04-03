@@ -32,7 +32,7 @@ foreach ($messages as $message) {
 
     $cleanResult = [
         "messageId" => $result['messageId'],
-        "sendTime" => strtotime($result['sendTime']) - 3600
+        "sendTime" => $result['sendTime']
     ];
 
     $results[] = $cleanResult;
