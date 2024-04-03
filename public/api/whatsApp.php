@@ -1,16 +1,10 @@
 <?php
-include_once '../php/sql_connect.php';
-include_once '../php/sql_utils.php';
-include_once '../php/session.php';
-include_once '../php/messages.php';
-include_once '../php/chat.php';
-
-// Check keys and session
+$requestMethod = "GET";
 $requestKeys = ['chatId', 'lastMessageId'];
-include_once "../php/checkRequestKeys.php";
-include_once "../php/checkSession.php";
+include_once "../php/apiHeader.php";
 
-$userId = getUserBySession($session);
+include_once '../php/messages.php';
+
 $chatId = $_GET['chatId'];
 $lastMessageId = $_GET['lastMessageId'];
 $chatUsers = getChatUsers($chatId);

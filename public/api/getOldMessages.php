@@ -1,15 +1,9 @@
 <?php
-include_once '../php/sql_connect.php';
-include_once '../php/sql_utils.php';
-include_once '../php/chat.php';
-
-// Check keys and session
+$requestMethod = "GET";
 $requestKeys = ['chatId'];
-include_once "../php/checkRequestKeys.php";
-include_once "../php/checkSession.php";
+include_once "../php/apiHeader.php";
 
 
-$userId = getUserBySession($session);
 $chatId = $_GET['chatId'];
 $olderThan = $_GET['olderThan'];
 
@@ -52,7 +46,3 @@ foreach ($result as $message) {
 }
 
 echo json_encode($cleanResult);
-
-//const response = await fetch(`../api/getOldMessages.php?chatId=${chatId}&olderThan=${this.messages[0].messaageId}`, {
-//            method: 'GET',
-//        });
