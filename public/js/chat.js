@@ -379,6 +379,24 @@ addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // Usefull feature to save scroll position
+    const buttons = document.querySelectorAll("a .Chat-room-buttons");
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const buttonsContainer = document.querySelector("#chat-room-aside");
+            const scrollPosition = buttonsContainer.scrollTop;
+            localStorage.setItem("scrollPosition", scrollPosition);
+            console.log("Saved scroll position", scrollPosition);
+        });
+    });
+
+    const scrollPosition = localStorage.getItem("scrollPosition");
+
+    if (scrollPosition) {
+        const buttonsContainer = document.querySelector("#chat-room-aside");
+        buttonsContainer.scrollTop = scrollPosition;
+    }
 });
 
 
