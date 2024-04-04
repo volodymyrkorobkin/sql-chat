@@ -44,23 +44,23 @@
 
 
 <?php 
-include_once '../php/sql_connect.php';
-include_once '../php/sql_utils.php';
-include_once '../php/session.php';
+// include_once '../php/sql_connect.php';
+// include_once '../php/sql_utils.php';
+// include_once '../php/session.php';
 
-$requestKeys = ['new-chat-name'];
-include_once "../php/checkRequestKeys.php";
-include_once "../php/checkSession.php";
+// $requestKeys = ['new-chat-name'];
+// include_once "../php/checkRequestKeys.php";
+// include_once "../php/checkSession.php";
 
 
-foreach ($messages as $message) {
-    $message = json_decode($message, true);
-    $messageBody = $message['messageBody'];
+// foreach ($messages as $message) {
+//     $message = json_decode($message, true);
+//     $messageBody = $message['messageBody'];
     
-    $sql = "DELETE FROM messages WHERE chatId = ? AND userId = ?";
-    $params = [$chatId, $userId];
-    runSql($sql, $params);
-}
+//     $sql = "DELETE FROM messages WHERE chatId = ? AND userId = ?";
+//     $params = [$chatId, $userId];
+//     runSql($sql, $params);
+// }
 
 
 ?>
