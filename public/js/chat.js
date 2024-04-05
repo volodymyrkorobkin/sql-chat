@@ -59,6 +59,12 @@ class Message {
         return containerDiv;
     }
 
+    updateBody() {
+        if (!this.htmlObj) return;
+        const message = this.htmlObj.querySelector(".leftMessage");
+        message.innerHTML = this.sender + ": " + this.messageBody + this.htmlObj.querySelector(".time-left").outerHTML;
+    }
+
     updateTime() {
         if (!this.htmlObj) return;
         const time = this.htmlObj.querySelector(".time-left");
@@ -285,11 +291,30 @@ class Chat {
     changeMessage(messageId, newBody) {
         // Change the message on the server
         // Update the chat with the new message
+        this.messages.forEach(message => {
+            if (message.messageId === messageId) {
+                message.messageBody = newBody;
+                message.updateBody();
+                return;
+            }
+        });
     }
 
     deleteMessage(messageId) {
         // Delete the message on the server
-        // Update the chat with the new message
+        // Delete the message from the chat
+        this.messages.forEach((message, index) => {
+            if (message.messageId === messageId) {
+                this.messagesTextArea.removeChild(message.htmlObj);
+                this.messages.splice(index, 1);
+                this.messagesIds.delete(messageId);
+
+                if (index === MESSAGES_BUFFER) {
+                    if (this.messages.length > MESSAGES_BUFFER) this.observedElement = this.messages[MESSAGES_BUFFER].htmlObj;
+                }
+                return;
+            }
+        });
     }
 
     handleNewMessages(newMessages) {
@@ -313,8 +338,11 @@ class Chat {
     handleChangedMessages(changedMessages) {
         if (!changedMessages) return;
         changedMessages.forEach(message => {
-            const messageObj = new Message(message.messageId, message.userId, message.username, message.sendTime, message.messageBody);
-            this.updateMessage(messageObj);
+            if (message.isDeleted) {
+                this.deleteMessage(message.messageId);
+            } else {
+                this.changeMessage(message.messageId, message.messageBody);
+            }
         });
     }
 
@@ -363,15 +391,15 @@ class Chat {
 
     async loadPreviousMessagesLoop() {
         if (this.messages.length < MESSAGES_BUFFER + 1) return;
-        let observedElement = this.messages[MESSAGES_BUFFER].htmlObj;
+        this.observedElement = this.messages[MESSAGES_BUFFER].htmlObj;
         while (true) {
-            if (this.messagesTextArea.scrollTop - observedElement.offsetTop < 0) {
+            if (this.messagesTextArea.scrollTop - this.observedElement.offsetTop < 0) {
                 let loadedCnt = await this.loadPreviousMessages();
 
                 if (loadedCnt === 0) {
                     return;
                 }
-                observedElement = this.messages[MESSAGES_BUFFER].htmlObj;
+                this.observedElement = this.messages[MESSAGES_BUFFER].htmlObj;
             }
             await new Promise(resolve => setTimeout(resolve, 500));
         }

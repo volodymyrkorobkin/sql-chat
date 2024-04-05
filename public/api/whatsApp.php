@@ -79,13 +79,24 @@ function checkForUpdates() {
         if (count($updates["changedMessages"]) > 0) {
             $cleanResult = [];
             foreach ($updates["changedMessages"] as $message) {
-                $cleanMessage = [
-                    "messageId" => $message["messageId"],
-                    "chatId" => $message["chatId"],
-                    "userId" => $message["userId"],
-                    "messageBody" => $message["messageBody"],
-                    "sendTime" => $message["sendTime"]
-                ];
+                if ($message["isDeleted"]) {
+                    $cleanMessage = [
+                        "messageId" => $message["messageId"],
+                        "chatId" => $message["chatId"],
+                        "userId" => $message["userId"],
+                        "isDeleted" => true,
+                        "messageBody" => null
+                    ];
+                } else {
+                    $cleanMessage = [
+                        "messageId" => $message["messageId"],
+                        "chatId" => $message["chatId"],
+                        "userId" => $message["userId"],
+                        "messageBody" => $message["messageBody"],
+                        "isDeleted" => false,
+                        "sendTime" => $message["sendTime"]
+                    ];
+                }
 
                 $cleanResult[] = $cleanMessage;
                 $lastChangeId = max($lastChangeId, $message["changeId"]);
