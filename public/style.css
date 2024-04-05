@@ -410,27 +410,12 @@ New chat overlay
   }
   
 
-  
+  .settingsChat {
+    opacity:0;
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
 
-  
-  /*.time-right {
-    float: right;
-    color: #aaa;
-  }
-    .container img.right {
-    float: right;
-    margin-left: 20px;
-    margin-right:0;
-  }
 
-    .rightMessage {
-    border-color: #ccc;
-    background-color: #ddd;
-    border: 2px solid #dedede;
-    background-color: #f1f1f1;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px 0;
-  }
-  */
-
+.settingsChat:hover {
+    opacity:1;
+}
