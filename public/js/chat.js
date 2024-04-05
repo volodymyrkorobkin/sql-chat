@@ -1,4 +1,7 @@
 // Utils
+const MESSAGES_BUFFER = 20;
+
+
 function formatTime(sendTime) {
     return sendTime.split(" ")[1];
 }
@@ -70,6 +73,7 @@ class Chat {
         this.sendMessagesQueue = [];
         this.sendingMessages = new Set();
         this.messagesIds = new Set();
+        this.currentChangeId = NaN;
         
         this.initChat();
     }
@@ -86,7 +90,8 @@ class Chat {
     
 
     async loadInitialChatMessages() {
-        const messages = await this.fetchInitialChatMessages();
+        const [changeId, messages] = await this.fetchInitialChatMessages();
+        this.currentChangeId = parseInt(changeId);
         for (let message of messages) {
             this.insertMessage(message);
         }
@@ -99,9 +104,10 @@ class Chat {
             method: 'GET',
         });
         const data  = await response.json();
-        const messages = data.map(message => new Message(message.messageId, message.userId, message.username, message.sendTime, message.messageBody, true));
+        const changeId = data.changeId;
+        const messages = data.messages.map(message => new Message(message.messageId, message.userId, message.username, message.sendTime, message.messageBody, true));
     
-        return messages;
+        return [changeId, messages];
     }
 
     insertMessage(message) {
@@ -304,13 +310,25 @@ class Chat {
         });
     }
 
+    handleChangedMessages(changedMessages) {
+        if (!changedMessages) return;
+        changedMessages.forEach(message => {
+            const messageObj = new Message(message.messageId, message.userId, message.username, message.sendTime, message.messageBody);
+            this.updateMessage(messageObj);
+        });
+    }
+
     handleUpdates(data) {
         // Possible updates:
         // newMessages
-        // editedMessages
-        // deletedMessages
+        // changedMessages
 
         this.handleNewMessages(data.newMessages);
+        this.handleChangedMessages(data.changedMessages);
+
+        if (data.lastChangeId) {
+            this.currentChangeId = data.lastChangeId;
+        }
     }
     
     getLastValidMessageId() {
@@ -328,7 +346,7 @@ class Chat {
             lastMessageId = this.getLastValidMessageId();
 
             try {
-                const response = await fetch(`../api/whatsApp.php?chatId=${chatId}&lastMessageId=${lastMessageId}`, {
+                const response = await fetch(`../api/whatsApp.php?chatId=${chatId}&lastMessageId=${lastMessageId}&lastChangeId=${this.currentChangeId}`, {
                     method: 'GET',
                 });
                 if (response.ok) {
@@ -344,8 +362,8 @@ class Chat {
     }
 
     async loadPreviousMessagesLoop() {
-        if (this.messages.length < 21) return;
-        let observedElement = this.messages[20].htmlObj;
+        if (this.messages.length < MESSAGES_BUFFER + 1) return;
+        let observedElement = this.messages[MESSAGES_BUFFER].htmlObj;
         while (true) {
             if (this.messagesTextArea.scrollTop - observedElement.offsetTop < 0) {
                 let loadedCnt = await this.loadPreviousMessages();
@@ -353,7 +371,7 @@ class Chat {
                 if (loadedCnt === 0) {
                     return;
                 }
-                observedElement = this.messages[20].htmlObj;
+                observedElement = this.messages[MESSAGES_BUFFER].htmlObj;
             }
             await new Promise(resolve => setTimeout(resolve, 500));
         }

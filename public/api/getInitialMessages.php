@@ -13,21 +13,29 @@ if (!in_array($userId, $chatUsers)) {
     return;
 }
 
+$sql = "SELECT changeId FROM messageUpdates WHERE chatId = ? ORDER BY messageId DESC LIMIT 1";
+$params = [$chatId];
+$changeId = fetchSql($sql, $params);
+
+if (!$changeId) {
+    $changeId = 0;
+} else {
+    $changeId = $changeId['changeId'];
+}
+
+
+
 
 $sql = "SELECT * FROM (
     SELECT messages.*, users.username 
     FROM messages 
     INNER JOIN users 
-    ON messages.userId = users.id 
-    WHERE chatId = ? 
+    ON messages.userId = users.id
+    WHERE chatId = ? and isDeleted = 0
     ORDER BY messageId DESC 
     LIMIT 25
 ) AS subquery 
     ORDER BY messageId ASC;";
-
-
-
-
 $params = [$chatId];
 $result = fetchSqlAll($sql, $params);
 
@@ -46,4 +54,4 @@ foreach ($result as $message) {
     $cleanResult[] = $cleanMessage;
 }
 
-echo json_encode($cleanResult);
+echo json_encode(["changeId" => $changeId, "messages" => $cleanResult]);

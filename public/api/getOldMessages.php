@@ -20,7 +20,7 @@ $sql = "SELECT * FROM (
     FROM messages 
     INNER JOIN users 
     ON messages.userId = users.id 
-    WHERE chatId = ? and messageId < ? 
+    WHERE chatId = ? and messageId < ? and isDeleted = 0
     ORDER BY messageId DESC 
     LIMIT 25
 ) AS subquery 

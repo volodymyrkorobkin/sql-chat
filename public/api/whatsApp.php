@@ -1,12 +1,13 @@
 <?php
 $requestMethod = "GET";
-$requestKeys = ['chatId', 'lastMessageId'];
+$requestKeys = ['chatId', 'lastMessageId', 'lastChangeId'];
 include_once "../php/apiHeader.php";
 
 include_once '../php/messages.php';
 
 $chatId = $_GET['chatId'];
 $lastMessageId = $_GET['lastMessageId'];
+$lastChangeId = $_GET['lastChangeId'];
 $chatUsers = getChatUsers($chatId);
 if (!in_array($userId, $chatUsers)) {
     echo "You are not in this chat";
@@ -47,18 +48,18 @@ while (true) {
 function checkForUpdates() {
     $updates = [
         "newMessages" => [],
-        "editedMessages" => [],
-        "deletedMessages" => []
+        "changedMessages" => []
     ];
 
-    global $chatId, $lastMessageId, $userId;
+    global $chatId, $lastMessageId, $lastChangeId, $userId;
     $updates["newMessages"] = getNewMessages($chatId, $lastMessageId);
+    $updates["changedMessages"] = getChangedMessages($chatId, $lastChangeId);
 
 
-    if (count($updates["newMessages"]) > 0 || count($updates["editedMessages"]) > 0 || count($updates["deletedMessages"]) > 0){
+    if (count($updates["newMessages"]) > 0 || count($updates["changedMessages"]) > 0){
+        // Handle new messages
         if (count($updates["newMessages"]) > 0) {
             $cleanResult = [];
-
             foreach ($updates["newMessages"] as $message) {
                 $cleanMessage = [
                     "messageId" => $message["messageId"],
@@ -73,6 +74,29 @@ function checkForUpdates() {
             }
             $updates["newMessages"] = $cleanResult;
         }
+
+        // Handle changed messages (deleted or edited)
+        if (count($updates["changedMessages"]) > 0) {
+            $cleanResult = [];
+            foreach ($updates["changedMessages"] as $message) {
+                $cleanMessage = [
+                    "messageId" => $message["messageId"],
+                    "chatId" => $message["chatId"],
+                    "userId" => $message["userId"],
+                    "messageBody" => $message["messageBody"],
+                    "sendTime" => $message["sendTime"]
+                ];
+
+                $cleanResult[] = $cleanMessage;
+                $lastChangeId = max($lastChangeId, $message["changeId"]);
+            }
+            $updates["changedMessages"] = $cleanResult;
+            $updates["lastChangeId"] = $lastChangeId;
+        }
+
+
+
+
         return $updates;
     }
 
