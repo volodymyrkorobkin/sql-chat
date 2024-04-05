@@ -1,8 +1,17 @@
 // Utils
-function secondsSinceEpoch(){ return Math.floor( Date.now() / 1000 )}
-function formatTime(epochSeconds) {
-    const date = new Date(epochSeconds * 1000);
-    return date.toLocaleDateString("en-US", {hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false }).split(", ")[1];
+function formatTime(sendTime) {
+    return sendTime.split(" ")[1];
+}
+function getCurrentFormattedDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 // Classes
@@ -162,7 +171,7 @@ class Chat {
     }
 
     async sendMessage(messageText) {
-        let newMessage = new Message(null, userId, username, secondsSinceEpoch(), messageText);
+        let newMessage = new Message(null, userId, username, getCurrentFormattedDate(), messageText);
         this.insertMessage(newMessage);
 
         this.sendMessagesQueue.push(newMessage);
@@ -370,6 +379,24 @@ addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // Usefull feature to save scroll position
+    const buttons = document.querySelectorAll("a .Chat-room-buttons");
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const buttonsContainer = document.querySelector("#chat-room-aside");
+            const scrollPosition = buttonsContainer.scrollTop;
+            localStorage.setItem("scrollPosition", scrollPosition);
+            console.log("Saved scroll position", scrollPosition);
+        });
+    });
+
+    const scrollPosition = localStorage.getItem("scrollPosition");
+
+    if (scrollPosition) {
+        const buttonsContainer = document.querySelector("#chat-room-aside");
+        buttonsContainer.scrollTop = scrollPosition;
+    }
 });
 
 
