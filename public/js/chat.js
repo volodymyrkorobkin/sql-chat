@@ -47,12 +47,20 @@ class Message {
         let time = document.createElement("div");  
         time.classList.add("time-left");
         time.innerHTML = formatTime(this.sendTime);
+        let settingsChat = document.createElement("div");
+        settingsChat.classList.add("settingsChat");
+        settingsChat.id = "settings";
+        settingsChat.innerHTML = "⚙️";
+        settingsChat.addEventListener("onclick()")
+
+        
     
     
         // Append elements
         containerDiv.appendChild(profilePictureImg);
         containerDiv.appendChild(leftMessageDiv);
         leftMessageDiv.appendChild(time);
+        containerDiv.appendChild(settingsChat);
 
         this.htmlObj = containerDiv;
     

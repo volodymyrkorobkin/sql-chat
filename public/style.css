@@ -413,9 +413,12 @@ New chat overlay
   .settingsChat {
     opacity:0;
     cursor: pointer; /* Change cursor to pointer on hover */
+    height:20px;
+    font-size: 15px;
 }
 
 
 .settingsChat:hover {
     opacity:1;
 }
+
