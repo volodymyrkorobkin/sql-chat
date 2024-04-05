@@ -414,7 +414,7 @@ New chat overlay
     opacity:0;
     cursor: pointer; /* Change cursor to pointer on hover */
     height:20px;
-    font-size: 15px;
+    font-size: 18px;
 }
 
 
@@ -422,15 +422,33 @@ New chat overlay
     opacity:1;
 }
 
-
-
-.overlay-wrapper.open {
-    background-color: white;
-
-    border-radius: 5px;
-
-    padding: 10px;
-
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+.settingsChat > button {
+    background-color: transparent;
+    border: none;
 }
 
+
+.overlay{
+    display:flex;
+    flex-direction: row;
+    z-index: 999999;
+}
+
+.overlay > button{
+    height:5vh;
+    z-index: 999999;
+    width:5vw;
+    background-color: transparent;
+    border: 1px;
+    border-style: solid;
+}
+
+.overlay button:nth-child(1) {
+    background-color: lightcoral; /* Style for the first button (upper one) */
+    border-right: none;
+}
+
+.overlay button:nth-child(2) {
+    background-color: cyan;
+    border-left: none;
+}

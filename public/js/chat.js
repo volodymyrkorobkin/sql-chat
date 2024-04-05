@@ -83,7 +83,7 @@ class Message {
                 overlay.classList.add("overlay");
 
                 const deleteButton = document.createElement("button");
-                deleteButton.innerText = "Delete";
+                deleteButton.innerText = "🗑️";
                 deleteButton.addEventListener("click", () => {
                     console.log("Delete clicked");
 
@@ -99,7 +99,7 @@ class Message {
 
                 //Edit button
                 const editButton = document.createElement("button");
-                editButton.innerText = "Edit";
+                editButton.innerText = "✏️";
                 editButton.addEventListener("click", () => {
                     console.log("Edit clicked");
                     document.getElementById("input-field").value = this.messageBody;
