@@ -1,21 +1,34 @@
-<?php 
-// include_once '../php/sql_connect.php';
-// include_once '../php/sql_utils.php';
-// include_once '../php/session.php';
+<?php
+$requestMethod = "GET";
+$requestKeys = ['messageId', "messageBody"];
+include_once "../php/apiHeader.php";
 
-// $requestKeys = ['chat-id', 'user-id', 'message-id', 'new-message-body']; // Updated request keys
-// include_once "../php/checkRequestKeys.php";
-// include_once "../php/checkSession.php";
+$messageBody = $_GET['messageBody'];
+$messageId = $_GET['messageId'];
 
-// // Extracting variables from the session and request
-// $chatId = $_SESSION['chat_id'];
-// $userId = $_SESSION['user_id'];
-// $messageId = $_REQUEST['message-id'];
-// $newMessageBody = $_REQUEST['new-message-body'];
+$sql = "SELECT chatId, userId FROM messages WHERE messageId = ?";
+$params = [$messageId];
+$result = fetchSql($sql, $params);
+$chatId = $result['chatId'];
+$ovnerId = $result['userId'];
 
-// // Updating the message
-// $sql = "UPDATE messages SET messageBody = ? WHERE chatId = ? AND userId = ? AND id = ?";
-// $params = [$newMessageBody, $chatId, $userId, $messageId];
-// runSql($sql, $params);
+if ($ovnerId != $userId) {
+    exit("'You are not the owner of this message'");
+}
 
-?>
+//Check is result not an empty
+if ($result == false) {
+    exit("'No message with this id'");
+}
+
+
+$sql = "UPDATE messages SET messageBody = ? WHERE messageId = ?";
+$params = [$messageBody, $messageId];
+runSql($sql, $params);
+
+$sql = "INSERT INTO messageUpdates (chatId, messageId) VALUES (? , ?)";
+$params = [$chatId, $messageId];
+runSql($sql, $params);
+
+
+echo(json_encode(true));
