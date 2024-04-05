@@ -27,5 +27,5 @@ Wat is er nog niet geïmplementeerd in het project?
 - Vervaldatum van de invite link.
 - Mogelijkheid om het wachtwoord, gebruikersnaam te wijzigen.
 - Mogelijkheid om de account te verwijderen.
-- 
+- Gebruiksvriendelijkere interface
 
