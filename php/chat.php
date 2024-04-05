@@ -18,6 +18,23 @@ function addUserToChat($userId, $chatId) {
     $params = [$chatId, $userId];
 
     runSql($sql, $params);
+
+    $sql = "UPDATE chats SET membersCount = membersCount + 1 WHERE chatId = ?";
+    $params = [$chatId];
+
+    runSql($sql, $params);
+}
+
+function removeUserFromChat($userId, $chatId) {
+    $sql = "DELETE FROM chatsMembers WHERE chatId = ? AND userId = ?";
+    $params = [$chatId, $userId];
+
+    runSql($sql, $params);
+
+    $sql = "UPDATE chats SET membersCount = membersCount - 1 WHERE chatId = ?";
+    $params = [$chatId];
+
+    runSql($sql, $params);
 }
 
 function getUserChats($userId) {

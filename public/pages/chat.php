@@ -15,6 +15,7 @@ if (!isset ($_SESSION["id"]) || !isValidSession($_SESSION["id"])) {
 $chats = [];
 $chatsSqlResponse = getUserChats(getUserBySession($_SESSION["id"]));
 
+
 foreach ($chatsSqlResponse as $chatRow) {
   $chatId = $chatRow['chatId'];
   $chatName = getChatNameById($chatId);
@@ -22,6 +23,13 @@ foreach ($chatsSqlResponse as $chatRow) {
   $chats[$chatId] = [
     "name" => $chatName
   ];
+}
+
+
+$chatMembersCnt = "";
+
+if (isset($_GET["chatId"])) {
+  $chatMembersCnt = count(getChatUsers($_GET["chatId"]));
 }
 
 
@@ -90,13 +98,17 @@ echo "<script>const username = '" . getUserById(getUserBySession($_SESSION["id"]
           ?>
         </h1>
         <article id="settings-Members">
-          <h1 class="text-Header">5 members</h1>
+          <h1 class="text-Header">Members: <?php echo $chatMembersCnt ?></h1>
           <input type="checkbox" id="menu-toggle">
           <label for="menu-toggle" id="menu-icon">&#129416;</label>
           <nav id="navMain">
-            <a>settings</a>
-            <a>leave-group</a>
-            <a>log-out</a>
+            <?php
+              if (isset($_GET["chatId"])) {
+                echo "<a href='./createInviteLink.php?chatId={$_GET["chatId"]}'>Create invite</a>";
+                echo "<a href='../api/leaveChat.php?chatId={$_GET["chatId"]}'>leave-group</a>";
+              }
+            ?>
+            <a href="./logout.php">log-out</a>
           </nav>
         </article>
       </section>
