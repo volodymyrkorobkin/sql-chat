@@ -50,8 +50,41 @@ class Message {
         let settingsChat = document.createElement("div");
         settingsChat.classList.add("settingsChat");
         settingsChat.id = "settings";
-        settingsChat.innerHTML = "⚙️";
-        settingsChat.addEventListener("onclick()")
+        
+        // Settings button
+        const settingsbutton = document.createElement("button");
+        settingsbutton.innerHTML = "⚙️";
+
+        settingsChat.appendChild(settingsbutton);
+        const overlayWrapper = document.createElement("div");
+        overlayWrapper.classList.add("overlay-wrapper");
+        settingsChat.appendChild(overlayWrapper);
+
+        settingsbutton.addEventListener("click", () => {
+            console.log("Settings clicked");
+
+            overlayWrapper.innerHTML = "";
+            overlayWrapper.classList.add("open");
+
+
+            const overlay = document.createElement("div");
+            overlay.classList.add("overlay");
+
+            const deleteButton = document.createElement("button");
+            deleteButton.innerText = "Delete";
+            deleteButton.addEventListener("click", () => {
+                console.log("Delete clicked");
+            });
+            overlay.appendChild(deleteButton);
+
+            overlayWrapper.appendChild(overlay);
+        })
+
+
+        settingsChat.addEventListener("mouseleave", () => {
+            overlayWrapper.innerHTML = "";
+            overlayWrapper.classList.remove("open");
+        });
 
         
     

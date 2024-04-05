@@ -422,3 +422,15 @@ New chat overlay
     opacity:1;
 }
 
+
+
+.overlay-wrapper.open {
+    background-color: white;
+
+    border-radius: 5px;
+
+    padding: 10px;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
