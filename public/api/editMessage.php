@@ -1,10 +1,10 @@
 <?php
-$requestMethod = "GET";
+$requestMethod = "POST";
 $requestKeys = ['messageId', "messageBody"];
 include_once "../php/apiHeader.php";
 
-$messageBody = $_GET['messageBody'];
-$messageId = $_GET['messageId'];
+$messageBody = $_POST['messageBody'];
+$messageId = $_POST['messageId'];
 
 $sql = "SELECT chatId, userId FROM messages WHERE messageId = ?";
 $params = [$messageId];

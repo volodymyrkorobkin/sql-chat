@@ -1,6 +1,8 @@
 // Utils
 const MESSAGES_BUFFER = 20;
 
+let editingmessageId = null;
+
 
 function formatTime(sendTime) {
     return sendTime.split(" ")[1];
@@ -28,6 +30,9 @@ class Message {
         this.htmlObj = htmlObj;
     }
 
+
+
+
     createCard() {
         let containerDiv = document.createElement("div");
     
@@ -47,56 +52,78 @@ class Message {
         let time = document.createElement("div");  
         time.classList.add("time-left");
         time.innerHTML = formatTime(this.sendTime);
-        let settingsChat = document.createElement("div");
-        settingsChat.classList.add("settingsChat");
-        settingsChat.id = "settings";
-        
-        // Settings button
-        const settingsbutton = document.createElement("button");
-        settingsbutton.innerHTML = "⚙️";
 
-        settingsChat.appendChild(settingsbutton);
-        const overlayWrapper = document.createElement("div");
-        overlayWrapper.classList.add("overlay-wrapper");
-        settingsChat.appendChild(overlayWrapper);
-
-        settingsbutton.addEventListener("click", () => {
-            console.log("Settings clicked");
-
-            overlayWrapper.innerHTML = "";
-            overlayWrapper.classList.add("open");
-
-
-            const overlay = document.createElement("div");
-            overlay.classList.add("overlay");
-
-            const deleteButton = document.createElement("button");
-            deleteButton.innerText = "Delete";
-            deleteButton.addEventListener("click", () => {
-                console.log("Delete clicked");
-            });
-            overlay.appendChild(deleteButton);
-
-            overlayWrapper.appendChild(overlay);
-        })
-
-
-        settingsChat.addEventListener("mouseleave", () => {
-            overlayWrapper.innerHTML = "";
-            overlayWrapper.classList.remove("open");
-        });
-
-        
-    
-    
-        // Append elements
         containerDiv.appendChild(profilePictureImg);
         containerDiv.appendChild(leftMessageDiv);
         leftMessageDiv.appendChild(time);
-        containerDiv.appendChild(settingsChat);
 
+        if (userId == this.senderId) {
+
+            let settingsChat = document.createElement("div");
+            settingsChat.classList.add("settingsChat");
+            settingsChat.id = "settings";
+            
+            // Settings button
+            const settingsbutton = document.createElement("button");
+            settingsbutton.innerHTML = "⚙️";
+
+            settingsChat.appendChild(settingsbutton);
+            const overlayWrapper = document.createElement("div");
+            overlayWrapper.classList.add("overlay-wrapper");
+            settingsChat.appendChild(overlayWrapper);
+
+            settingsbutton.addEventListener("click", () => {
+                console.log("Settings clicked");
+
+                overlayWrapper.innerHTML = "";
+                overlayWrapper.classList.add("open");
+
+
+                const overlay = document.createElement("div");
+                overlay.classList.add("overlay");
+
+                const deleteButton = document.createElement("button");
+                deleteButton.innerText = "Delete";
+                deleteButton.addEventListener("click", () => {
+                    console.log("Delete clicked");
+
+                    fetch(`../api/deleteMessage.php`, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            messageId: this.messageId
+                        }),
+                    });
+                });
+                overlay.appendChild(deleteButton);
+
+
+                //Edit button
+                const editButton = document.createElement("button");
+                editButton.innerText = "Edit";
+                editButton.addEventListener("click", () => {
+                    console.log("Edit clicked");
+                    document.getElementById("input-field").value = this.messageBody;
+                    editingmessageId = this.messageId;
+
+                    const input = document.getElementById("input-field");
+                    input.focus();
+                    overlayWrapper.innerHTML = "";
+                    overlayWrapper.classList.remove("open");
+                });
+
+                overlay.appendChild(editButton);
+
+
+                overlayWrapper.appendChild(overlay);
+            })
+            settingsChat.addEventListener("mouseleave", () => {
+                overlayWrapper.innerHTML = "";
+                overlayWrapper.classList.remove("open");
+            });
+            console.log("Settings created")
+            containerDiv.appendChild(settingsChat);
+        }
         this.htmlObj = containerDiv;
-    
         return containerDiv;
     }
 
@@ -499,5 +526,17 @@ function closeNewChatOverlay() {
 }
 function savedInput() {
     const savedInput = document.getElementById("input-field").value;
-    chat.sendMessage(savedInput);
+    if (!editingmessageId) {
+        chat.sendMessage(savedInput);
+    } else {
+        chat.changeMessage(editingmessageId, savedInput);
+        fetch(`../api/editMessage.php`, {
+            method: 'POST',
+            body: JSON.stringify({
+                messageId: editingmessageId,
+                messageBody: savedInput
+            }),
+        });
+        editingmessageId = null;
+    }
 }
