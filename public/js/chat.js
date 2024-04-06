@@ -452,6 +452,9 @@ class Chat {
 
             } catch (error) {
                 console.error('Fetch error: ', error);
+                
+                // TODO: better error handling
+                location.reload();
             }
             await new Promise(resolve => setTimeout(resolve, 100));
         }
