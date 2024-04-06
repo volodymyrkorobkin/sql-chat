@@ -81,5 +81,8 @@ function getChatIdByInvite($inviteLink) {
     $params = [$inviteLink];
     $result = fetchSql($sql, $params);
 
+    if ($result == null) {
+        return null;
+    }
     return $result['chatId'];
 }
