@@ -13,7 +13,7 @@ if (!in_array($userId, $chatUsers)) {
     return;
 }
 
-$sql = "SELECT changeId FROM messageUpdates WHERE chatId = ? ORDER BY messageId DESC LIMIT 1";
+$sql = "SELECT changeId FROM messageUpdates WHERE chatId = ? ORDER BY changeId DESC LIMIT 1";
 $params = [$chatId];
 $changeId = fetchSql($sql, $params);
 
