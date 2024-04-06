@@ -36,13 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //:TODO: Better feedback for the user
     if (!isUserExists($username)) {
-        echo "User does not exist";
-        return;
+        exit("User does not exist");
     }
 
     //:TODO: Better feedback for the user
     if (!isCredentialsCorrect($username, $password)) {
-        echo "Credentials are not correct";
+        exit("Credentials are not correct");
     }
     
     $userId = getUserId($username);
@@ -54,16 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: chat.php");
 }
 
-
-if (isset($_SESSION["id"])) {
-    if (isValidSession($_SESSION["id"])) {
-        echo "You are signed in";
-        echo $_SESSION["id"];
-    }
-}
-
-// Clear the post data
-$_POST = array();
 ?>
 
 <!DOCTYPE html>
