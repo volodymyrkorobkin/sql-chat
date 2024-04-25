@@ -146,6 +146,7 @@ echo "<script>const username = '" . getUserById(getUserBySession($_SESSION["id"]
         <section>
           <button type="button" id="cancel-create-chat" onclick="closeNewChatOverlay()">Cancel</button>
           <input type="submit" value="Create" name="submit">
+          <p class="imagesenderbutton">+</p>
         </section>
       </form>
     </section>
